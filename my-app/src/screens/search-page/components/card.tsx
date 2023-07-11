@@ -1,17 +1,15 @@
-import * as React from "react";
-
-interface ICardProps {
+type Props = {
   data: any;
-}
+};
 
 // CHECK MISSING CARD DATA
-const Card: React.FunctionComponent<ICardProps> = ({ data }) => {
+export const Card = ({ data }: Props) => {
   const {
     primaryImage,
     primaryImageSmall,
-    title,
-    artistDisplayBio,
-    accessionNumber,
+    title = "Missed",
+    artistDisplayBio = "Missed",
+    accessionNumber = "Missed",
   } = data;
 
   return (
@@ -21,16 +19,13 @@ const Card: React.FunctionComponent<ICardProps> = ({ data }) => {
         <img
           className="cardImage"
           src={primaryImage || primaryImageSmall}
-          alt={`${title}-picture`}
+          alt={`${title}-representation`}
         />
-      ) : null}
-      {(!!primaryImage || !!primaryImageSmall) === false ? (
-        <div className="imageFallback" />
-      ) : null}
+      ) : (
+        <div className="imageFallback">No image</div>
+      )}
       <p className="bio">{artistDisplayBio}</p>
       <p className="bio">{accessionNumber}</p>
     </div>
   );
 };
-
-export default Card;
